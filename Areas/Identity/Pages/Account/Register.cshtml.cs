@@ -37,6 +37,7 @@ namespace TrashCollector.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -64,7 +65,8 @@ namespace TrashCollector.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            [Required] public string Role{ get; set; }
+            [Required] 
+            public string Role { get; set; }
     }
 
         public async Task OnGetAsync(string returnUrl = null)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,27 +8,29 @@ using System.Threading.Tasks;
 
 namespace TrashCollector.Controllers
 {
-    public class Customer : Controller
+    //[Authorize(Roles = "Customer")]
+    public class CustomersController : Controller
     {
-        // GET: Customer
+
+        // GET: CustomersController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Customer/Details/5
+        // GET: CustomersController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Customer/Create
+        // GET: CustomersController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+        // POST: CustomersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -42,13 +45,13 @@ namespace TrashCollector.Controllers
             }
         }
 
-        // GET: Customer/Edit/5
+        // GET: CustomersController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Customer/Edit/5
+        // POST: CustomersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -63,13 +66,13 @@ namespace TrashCollector.Controllers
             }
         }
 
-        // GET: Customer/Delete/5
+        // GET: CustomersController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Customer/Delete/5
+        // POST: CustomersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

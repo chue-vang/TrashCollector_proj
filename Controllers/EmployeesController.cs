@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace TrashCollector.Controllers
 {
-    public class Employee : Controller
+    //[Authorize(Roles = "Employee")]
+    public class EmployeesController : Controller
     {
         // GET: Employee
         public ActionResult Index()
@@ -15,19 +17,19 @@ namespace TrashCollector.Controllers
             return View();
         }
 
-        // GET: Employee/Details/5
+        // GET: EmployeesController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Employee/Create
+        // GET: EmployeesController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: EmployeesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -42,13 +44,13 @@ namespace TrashCollector.Controllers
             }
         }
 
-        // GET: Employee/Edit/5
+        // GET: EmployeesController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Employee/Edit/5
+        // POST: EmployeesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -63,13 +65,13 @@ namespace TrashCollector.Controllers
             }
         }
 
-        // GET: Employee/Delete/5
+        // GET: EmployeesController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Employee/Delete/5
+        // POST: EmployeesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
