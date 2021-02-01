@@ -1,0 +1,82 @@
+﻿@model TrashCollector.Models.Customer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="First_Name" class="control-label"></label>
+                <input asp-for="First_Name" class="form-control" />
+                <span asp-validation-for="First_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Last_Name" class="control-label"></label>
+                <input asp-for="Last_Name" class="form-control" />
+                <span asp-validation-for="Last_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zipcode" class="control-label"></label>
+                <input asp-for="Zipcode" class="form-control" />
+                <span asp-validation-for="Zipcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pickup_Day" class="control-label"></label>
+                <input asp-for="Pickup_Day" class="form-control" />
+                <span asp-validation-for="Pickup_Day" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Extra_Pickup" class="control-label"></label>
+                <input asp-for="Extra_Pickup" class="form-control" />
+                <span asp-validation-for="Extra_Pickup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Start_Suspend_Date" class="control-label"></label>
+                <input asp-for="Start_Suspend_Date" class="form-control" />
+                <span asp-validation-for="Start_Suspend_Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="End_Suspend_Date" class="control-label"></label>
+                <input asp-for="End_Suspend_Date" class="form-control" />
+                <span asp-validation-for="End_Suspend_Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Charges_Owe" class="control-label"></label>
+                <input asp-for="Charges_Owe" class="form-control" />
+                <span asp-validation-for="Charges_Owe" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Confirm_Pickup" /> @Html.DisplayNameFor(model => model.Confirm_Pickup)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdentityUserId" class="control-label"></label>
+                <select asp-for="IdentityUserId" class ="form-control" asp-items="ViewBag.IdentityUserId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
