@@ -1,10 +1,10 @@
-﻿@model IEnumerable<TrashCollector.Models.Employee>
+﻿@model Merge
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Default";
 }
 
-<h1>Index</h1>
+<h1>Default</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,21 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.First_Name)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.Last_Name)
+                @Html.DisplayNameFor(model => model.Customers[0].First_Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Zipcode)
+                @Html.DisplayNameFor(model => model.Customers[0].Last_Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
+                @Html.DisplayNameFor(model => model.Customers[0].Zipcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Address)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Customers) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.First_Name)
@@ -37,9 +38,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Zipcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdentityUser.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

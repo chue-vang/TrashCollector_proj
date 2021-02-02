@@ -25,10 +25,29 @@ namespace TrashCollector.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+            if (employee == null)
+            {
+                return RedirectToAction("Create");
+            }
+            else
+            {
+                return RedirectToAction("Default");
+            }
 
-            //need employee default view to only be a list of today's pickup, determined by employee's zipcode
-            
-            return View();
+
+        }
+
+        public IActionResult Default()
+        {
+            Merge customerList = new Merge();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+            customerList.Customers= _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == "Tuesday").ToList();
+            return View(customerList);
+
+            //need to filter list that i'll be sending to the view, check pickups for particular customer if they have suspended pickups
+            //filter day of the week reference custom view 
+            //check if they have a special pickup for that particular day, 
         }
 
         // GET: Employees/Details/5
