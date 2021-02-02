@@ -4,7 +4,8 @@
     ViewData["Title"] = "Default";
 }
 
-<h1>Default</h1>
+<h1>Welcome!</h1>
+<h4>Your pickups for today.</h4>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,41 +14,52 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].First_Name)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Last_Name)
+                Zipcode
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Zipcode)
+                Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customers[0].Address)
+                Balance
             </th>
-            <th></th>
+            <th>
+                Pickup Status
+            </th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Customers) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.First_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Last_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zipcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-            </td>
-        </tr>
+
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zipcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Last_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Charges_Owe)
+                </td>
+                <td>
+
+                </td>
+            
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                    <a asp-action="CustomerDetail" asp-route-id="@item.Id">Customer Details</a> |
+                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
 }
     </tbody>
 </table>

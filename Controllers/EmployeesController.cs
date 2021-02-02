@@ -33,44 +33,38 @@ namespace TrashCollector.Controllers
             {
                 return RedirectToAction("Default");
             }
-
-
         }
 
         public IActionResult Default()
         {
-            string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
             Merge customerList = new Merge();
+            string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
-            customerList.Customers= _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == currentDayOfWeek).ToList();
+            customerList.Customers = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == currentDayOfWeek).ToList();
             return View(customerList);
 
             //need to filter list that i'll be sending to the view, check pickups for particular customer if they have suspended pickups
             //filter day of the week reference custom view 
             //check if they have a special pickup for that particular day, 
-            // && c.Pickup_Day == "Tuesday"
         }
+        //filter customers in pickup area(zipcode) by a particular day of the week to see who gets a pickup for the day selected
 
-        //public IActionResult 
 
-        // GET: Employees/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Employees/Get CustomerDetail
+        public async Task<IActionResult> CustomerDetail(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .Include(e => e.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);           
+            if (customer == null)
             {
                 return NotFound();
             }
-
-            return View(employee);
+            return View(customer);
         }
 
         // GET: Employees/Create
