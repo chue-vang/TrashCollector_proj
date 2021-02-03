@@ -21,18 +21,26 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customers index view
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customers = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-            if (customers == null)
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            if (customer == null)
             {
                 return RedirectToAction("Create");
             }
-            return View(customers);
-
-
+            return RedirectToAction("Index");
         }
+
+        //public IActionResult Default()
+        //{
+        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+        //    var customList = _context.Customers.Where(c => c.IdentityUserId == userId).ToList();
+
+        //    return View(customList);
+        //}
+
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -56,7 +64,7 @@ namespace TrashCollector.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+
             return View();
         }
 
@@ -69,11 +77,13 @@ namespace TrashCollector.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userId;
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+
             return View(customer);
         }
 

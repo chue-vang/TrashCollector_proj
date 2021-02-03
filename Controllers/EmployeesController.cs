@@ -21,33 +21,37 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee's index view
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
             if (employee == null)
             {
                 return RedirectToAction("Create");
             }
             else
             {
-                return RedirectToAction("Default");
+                Merge customList = new Merge();
+                string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
+
+                customList.Customers = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == currentDayOfWeek).ToList();
+                return View(customList);
             }
         }
 
-        public IActionResult Default()
-        {
-            Merge customerList = new Merge();
-            string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
-            customerList.Customers = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == currentDayOfWeek).ToList();
-            return View(customerList);
+        //public IActionResult Default()
+        //{
+        //    Merge customList = new Merge();
+        //    string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
+        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+        //    customList.Customers = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == currentDayOfWeek).ToList();
+        //    return View(customerList);
 
             //need to filter list that i'll be sending to the view, check pickups for particular customer if they have suspended pickups
             //filter day of the week reference custom view 
             //check if they have a special pickup for that particular day, 
-        }
+        //}
         //filter customers in pickup area(zipcode) by a particular day of the week to see who gets a pickup for the day selected
 
 
@@ -83,11 +87,13 @@ namespace TrashCollector.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
+
             return View(employee);
         }
 
