@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using TrashCollector.Models;
 
 namespace TrashCollector.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,42 +26,30 @@ namespace TrashCollector.Controllers
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).AsEnumerable();
             if (customer == null)
             {
                 return RedirectToAction("Create");
             }
-            return RedirectToAction("Index");
+            return View(customer);
         }
-
-        //public IActionResult Default()
-        //{
-        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-        //    var customList = _context.Customers.Where(c => c.IdentityUserId == userId).ToList();
-
-        //    return View(customList);
-        //}
 
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Account(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var customer = await _context.Customers
-                .Include(c => c.IdentitiyUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
-        }
+        //    var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
+        //    if (customer == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(customer);
+        //}
 
         // GET: Customers/Create
         public IActionResult Create()
