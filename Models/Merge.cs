@@ -11,7 +11,7 @@ namespace TrashCollector.Models
     public class Merge
     {
         public List<Customer> Customers { get; set; }
-        //help facilitate our ability to select day of week
+
 
 
     }
