@@ -1,65 +1,67 @@
 ﻿@model Merge
 
 @{
-    ViewData["Title"] = "Default";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Welcome @*@Html.DisplayFor(modelItem => modelItem.First_Name)*@</h1>
-<h4>Your pickups for today.</h4>
-
-<p>
-
-</p>
+<h1>Welcome</h1>
+<h5>Here are your pickups for the day!</h5>
+<br />
 <table class="table">
     <thead>
         <tr>
+
+
             <th>
                 Address
             </th>
             <th>
-                Zipcode
+                Zip
+            </th>
+            <th>
+                Fist Name
             </th>
             <th>
                 Last Name
             </th>
             <th>
-                Balance
+                Extra Pickup
             </th>
             <th>
-                Pickup Status
+                Confirm Pickup
             </th>
-            <th>
-
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
+@foreach (var item in Model.Customers) {
+        <tr>
 
-        @foreach (var item in Model.Customers)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zipcode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Last_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Charges_Owe)
-                </td>
-                <td>
 
-                </td>
-            
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
-                    <a asp-action="CustomerDetail" asp-route-id="@item.Id">Customer Details</a> |
-                    @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                </td>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zipcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extra_Pickup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirm_Pickup)
+            </td>
+            <td>
+
+                <a asp-action="CustomerDetail" asp-route-id="@item.Id">Details</a> |
+
+            </td>
+        </tr>
 }
     </tbody>
 </table>

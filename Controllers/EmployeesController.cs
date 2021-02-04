@@ -35,7 +35,9 @@ namespace TrashCollector.Controllers
             {
                 Merge customList = new Merge();
                 string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
-                customList.Customers = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && c.Pickup_Day == currentDayOfWeek).ToList();
+                var allCustomersFromZip = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && (c.Pickup_Day == currentDayOfWeek || c.Extra_Pickup == DateTime.Today)).ToList();
+                customList.Customers = allCustomersFromZip;
+                
                 return View(customList);
             }
         }
