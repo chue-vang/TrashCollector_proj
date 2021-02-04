@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrashCollector.Models.Customer>
+﻿@model TrashCollector.Models.Customer
 
 @{
     ViewData["Title"] = "Details";
@@ -35,33 +35,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@*@foreach (var item in Model) {*@
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Pickup_Day)
+                @Html.DisplayFor(modelItem => modelItem.Pickup_Day)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Charges_Owe)
+                @Html.DisplayFor(modelItem => modelItem.Charges_Owe)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Extra_Pickup)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Start_Suspend_Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.End_Suspend_Date)
+                @Html.DisplayFor(modelItem => modelItem.Extra_Pickup)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Confirm_Pickup)
+                @Html.DisplayFor(modelItem => modelItem.Start_Suspend_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.End_Suspend_Date)
+            </td>
 
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @Html.DisplayFor(modelItem => modelItem.Confirm_Pickup)
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
 
             </td>
         </tr>
-}
+@*}*@
     </tbody>
 </table>

@@ -1,91 +1,81 @@
-﻿@model IEnumerable<TrashCollector.Models.Customer>
+﻿@model TrashCollector.Models.Customer
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Welcome</h1>
-
+<h1>Welcome @Html.DisplayFor(modelItem => modelItem.First_Name)!</h1>
+@*<h4>Your Account Details</h4>*@
 <p>
-    <a asp-action="Create">Welcome</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Additional Pickup Information</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.First_Name)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Last_Name)
+                Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Zipcode)
+                Zipcode
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pickup_Day)
+                Regular Pickup Day
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Extra_Pickup)
+                Balance Due
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Start_Suspend_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.End_Suspend_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Charges_Owe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Confirm_Pickup)
+                Check Box to Confirm Garbage Pickup
             </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @*@foreach (var item in Model) {*@
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.First_Name)
+                @Html.DisplayFor(modelItem => modelItem.First_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Last_Name)
+                @Html.DisplayFor(modelItem => modelItem.Last_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => modelItem.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Zipcode)
+                @Html.DisplayFor(modelItem => modelItem.Zipcode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pickup_Day)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Extra_Pickup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Start_Suspend_Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.End_Suspend_Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Charges_Owe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Confirm_Pickup)
+                @Html.DisplayFor(modelItem => modelItem.Pickup_Day)
             </td>
 
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @Html.DisplayFor(modelItem => modelItem.Charges_Owe)
+            </td>
+            <td>
+                <input class="form-check-input" asp-for="Confirm_Pickup" />
+                @*@Html.DisplayFor(modelItem => modelItem.Confirm_Pickup)*@
+            </td>
+
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>|*@
+                @*<a asp-action="Details" asp-route-id="@Model.Id">Details</a> |*@
 
             </td>
         </tr>
-}
+
+        @*}*@
     </tbody>
+
 </table>
+<div class="form-group">
+    <input type="submit" value="Click to Confirm Pickup" class="btn btn-primary" />
+</div>

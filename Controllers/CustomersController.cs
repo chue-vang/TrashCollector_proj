@@ -26,30 +26,31 @@ namespace TrashCollector.Controllers
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).AsEnumerable();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            
             if (customer == null)
             {
-                return RedirectToAction("Create");
+                return View("Create");
             }
             return View(customer);
         }
 
 
-        // GET: Customers/Details/5
-        //public async Task<IActionResult> Account(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //GET: Customers/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(customer);
-        //}
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return View(customer);
+        }
 
         // GET: Customers/Create
         public IActionResult Create()
