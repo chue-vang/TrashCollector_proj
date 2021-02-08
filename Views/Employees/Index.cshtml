@@ -10,8 +10,6 @@
 <table class="table">
     <thead>
         <tr>
-
-
             <th>
                 Address
             </th>
@@ -36,8 +34,6 @@
     <tbody>
 @foreach (var item in Model.Customers) {
         <tr>
-
-
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
@@ -57,11 +53,11 @@
                 @Html.DisplayFor(modelItem => item.Confirm_Pickup)
             </td>
             <td>
-
-                <a asp-action="CustomerDetail" asp-route-id="@item.Id">Details</a> |
-
+                <a asp-action="CustomerDetail" asp-route-id="@item.Id">Customer Profile</a> 
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+

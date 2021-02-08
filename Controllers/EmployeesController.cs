@@ -32,15 +32,16 @@ namespace TrashCollector.Controllers
                 return RedirectToAction("Create");
             }
             else
-            {
+            {                
                 Merge customList = new Merge();
+                var activePickupSuspendCheck = DateTime.Today;
                 string currentDayOfWeek = DateTime.Today.DayOfWeek.ToString();
                 var allCustomersFromZip = _context.Customers.Where(c => c.Zipcode == employee.Zipcode && (c.Pickup_Day == currentDayOfWeek || c.Extra_Pickup == DateTime.Today)).ToList();
-                customList.Customers = allCustomersFromZip;
-                
+                customList.Customers = allCustomersFromZip;                
                 return View(customList);
             }
         }
+
 
         // GET: Employees/Get CustomerDetail
         public async Task<IActionResult> CustomerDetail(int? id)
